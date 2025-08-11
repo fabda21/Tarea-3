@@ -1,4 +1,4 @@
-package com.example.conversordeunidades;
+package com.converter;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,13 +13,9 @@ public class ConverterApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(
-                ConverterApplication.class.getResource("converter-view.fxml")
+                getClass().getResource("/com/example.conversordeunidades/converter-view.fxml")
         );
-
         Scene scene = new Scene(fxmlLoader.load(), 500, 700);
-        scene.getStylesheets().add(
-                getClass().getResource("styles.css").toExternalForm()
-        );
 
         stage.setTitle("Conversor de Unidades");
         stage.setResizable(false);

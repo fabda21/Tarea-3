@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 public class ConverterController implements Initializable {
 
-    // Elementos FXML
+
     @FXML private ComboBox<ConversionType> typeComboBox;
     @FXML private TextField inputField;
     @FXML private ComboBox<Unit> fromUnitComboBox;
@@ -30,11 +30,11 @@ public class ConverterController implements Initializable {
     @FXML private Button convertButton;
     @FXML private Button clearButton;
 
-    // Lista del historial de conversiones (máximo 10)
+
     private final List<ConversionHistory> conversionHistory = new ArrayList<>();
     private final int MAX_HISTORY = 10;
 
-    // Formateador para mostrar números con 4 decimales
+
     private final DecimalFormat decimalFormat = new DecimalFormat("#.####");
 
     @Override
@@ -44,49 +44,42 @@ public class ConverterController implements Initializable {
         setupValidations();
     }
 
-    /**
-     * Configura los componentes iniciales
-     */
+
     private void setupComponents() {
-        // Configurar ComboBox de tipos de conversión
+
         typeComboBox.setItems(FXCollections.observableArrayList(ConversionType.values()));
 
-        // Hacer el campo de resultado solo lectura
+
         resultField.setEditable(false);
 
-        // Configurar área de historial
+
         historyTextArea.setEditable(false);
         historyTextArea.setText("Historial de conversiones:\n");
 
-        // Seleccionar el primer tipo por defecto
+
         if (!typeComboBox.getItems().isEmpty()) {
             typeComboBox.getSelectionModel().select(0);
             updateUnitComboBoxes();
         }
     }
 
-    /**
-     * Configura los manejadores de eventos
-     */
     private void setupEventHandlers() {
-        // Cuando cambia el tipo de conversión, actualizar las unidades
+
         typeComboBox.setOnAction(e -> updateUnitComboBoxes());
 
-        // Botón convertir
+
         convertButton.setOnAction(e -> performConversion());
 
-        // Botón limpiar
+
         clearButton.setOnAction(e -> clearAll());
 
-        // Enter en el campo de entrada también convierte
+
         inputField.setOnAction(e -> performConversion());
     }
 
-    /**
-     * Configura las validaciones de entrada
-     */
+
     private void setupValidations() {
-        // Validación para solo números en el campo de entrada
+
         inputField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty() && !ConversionService.isValidNumber(newValue)) {
                 inputField.setText(oldValue);
@@ -94,9 +87,7 @@ public class ConverterController implements Initializable {
         });
     }
 
-    /**
-     * Actualiza los ComboBox de unidades basado en el tipo seleccionado
-     */
+
     private void updateUnitComboBoxes() {
         ConversionType selectedType = typeComboBox.getSelectionModel().getSelectedItem();
         if (selectedType != null) {
@@ -106,7 +97,7 @@ public class ConverterController implements Initializable {
             fromUnitComboBox.setItems(unitList);
             toUnitComboBox.setItems(unitList);
 
-            // Seleccionar las primeras dos unidades por defecto
+
             if (units.length >= 2) {
                 fromUnitComboBox.getSelectionModel().select(0);
                 toUnitComboBox.getSelectionModel().select(1);
@@ -114,36 +105,34 @@ public class ConverterController implements Initializable {
         }
     }
 
-    /**
-     * Realiza la conversión principal
-     */
+
     @FXML
     private void performConversion() {
         try {
-            // Validar entrada
+
             if (!validateInput()) {
                 return;
             }
 
-            // Obtener valores
+
             double inputValue = ConversionService.parseDouble(inputField.getText());
             Unit fromUnit = fromUnitComboBox.getSelectionModel().getSelectedItem();
             Unit toUnit = toUnitComboBox.getSelectionModel().getSelectedItem();
 
-            // Validar que no sean la misma unidad
+
             if (fromUnit == toUnit) {
                 showAlert(AlertType.WARNING, "Advertencia",
                         "Por favor selecciona unidades diferentes para la conversión.");
                 return;
             }
 
-            // Realizar conversión
+
             double result = ConversionService.convert(inputValue, fromUnit, toUnit);
 
-            // Mostrar resultado
+
             resultField.setText(decimalFormat.format(result));
 
-            // Agregar al historial
+
             addToHistory(new ConversionHistory(inputValue, fromUnit, toUnit, result));
 
         } catch (NumberFormatException e) {
@@ -157,11 +146,9 @@ public class ConverterController implements Initializable {
         }
     }
 
-    /**
-     * Valida la entrada del usuario
-     */
+
     private boolean validateInput() {
-        // Validar campo de entrada
+
         if (inputField.getText().trim().isEmpty()) {
             showAlert(AlertType.WARNING, "Campo Requerido",
                     "Por favor ingresa un valor para convertir.");
@@ -169,7 +156,7 @@ public class ConverterController implements Initializable {
             return false;
         }
 
-        // Validar selección de unidad origen
+
         if (fromUnitComboBox.getSelectionModel().getSelectedItem() == null) {
             showAlert(AlertType.WARNING, "Selección Requerida",
                     "Por favor selecciona la unidad de origen.");
@@ -177,7 +164,7 @@ public class ConverterController implements Initializable {
             return false;
         }
 
-        // Validar selección de unidad destino
+
         if (toUnitComboBox.getSelectionModel().getSelectedItem() == null) {
             showAlert(AlertType.WARNING, "Selección Requerida",
                     "Por favor selecciona la unidad de destino.");
@@ -188,24 +175,20 @@ public class ConverterController implements Initializable {
         return true;
     }
 
-    /**
-     * Agrega una conversión al historial
-     */
+
     private void addToHistory(ConversionHistory conversion) {
         conversionHistory.add(0, conversion); // Agregar al inicio
 
-        // Mantener solo las últimas 10 conversiones
+
         if (conversionHistory.size() > MAX_HISTORY) {
             conversionHistory.remove(conversionHistory.size() - 1);
         }
 
-        // Actualizar el área de texto del historial
+
         updateHistoryDisplay();
     }
 
-    /**
-     * Actualiza la visualización del historial
-     */
+
     private void updateHistoryDisplay() {
         StringBuilder historyText = new StringBuilder("Historial de conversiones:\n");
         historyText.append("─".repeat(50)).append("\n");
@@ -220,19 +203,16 @@ public class ConverterController implements Initializable {
 
         historyTextArea.setText(historyText.toString());
 
-        // Scroll automático hacia arriba para mostrar la conversión más reciente
+
         historyTextArea.setScrollTop(0);
     }
 
-    /**
-     * Limpia todos los campos
-     */
     @FXML
     private void clearAll() {
         inputField.clear();
         resultField.clear();
 
-        // Restablecer selecciones de ComboBox
+
         if (!fromUnitComboBox.getItems().isEmpty()) {
             fromUnitComboBox.getSelectionModel().select(0);
         }
@@ -240,13 +220,11 @@ public class ConverterController implements Initializable {
             toUnitComboBox.getSelectionModel().select(1);
         }
 
-        // Enfocar el campo de entrada
+
         inputField.requestFocus();
     }
 
-    /**
-     * Muestra una alerta al usuario
-     */
+
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
