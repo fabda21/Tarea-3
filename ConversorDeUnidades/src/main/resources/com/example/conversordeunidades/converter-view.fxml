@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.converter.controller.ConverterController">
+  <children>
+
+    <Label text="CONVERSOR DE UNIDADES" styleClass="title">
+      <font>
+        <Font size="24.0" />
+      </font>
+      <VBox.margin>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      </VBox.margin>
+    </Label>
+
+
+    <GridPane hgap="10.0" vgap="15.0" styleClass="main-panel">
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0" prefWidth="120.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="250.0" prefWidth="250.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+
+
+      <Label text="Tipo:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="field-label" />
+      <ComboBox fx:id="typeComboBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="combo-box" />
+
+
+      <Label text="Valor:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="field-label" />
+      <TextField fx:id="inputField" promptText="Ingresa el valor a convertir" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="input-field" />
+
+
+      <Label text="De:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="field-label" />
+      <ComboBox fx:id="fromUnitComboBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="combo-box" />
+
+
+      <Label text="A:" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="field-label" />
+      <ComboBox fx:id="toUnitComboBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="combo-box" />
+
+
+      <Label text="Resultado:" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="field-label" />
+      <TextField fx:id="resultField" editable="false" promptText="Resultado de la conversión" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="result-field" />
+
+
+      <HBox alignment="CENTER" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <Button fx:id="convertButton" text="CONVERTIR" styleClass="convert-button" />
+        <Button fx:id="clearButton" text="LIMPIAR" styleClass="clear-button" />
+      </HBox>
+
+      <padding>
+        <Insets bottom="20.0" left="30.0" right="30.0" top="10.0" />
+      </padding>
+    </GridPane>
+
+    <Separator>
+      <VBox.margin>
+        <Insets left="20.0" right="20.0" />
+      </VBox.margin>
+    </Separator>
+
+
+    <VBox>
+      <Label text="HISTORIAL DE CONVERSIONES" styleClass="section-title">
+        <font>
+          <Font size="16.0" />
+        </font>
+        <VBox.margin>
+          <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+        </VBox.margin>
+      </Label>
+
+      <TextArea fx:id="historyTextArea" editable="false" prefHeight="200.0" styleClass="history-area">
+        <VBox.margin>
+          <Insets bottom="20.0" left="20.0" right="20.0" />
+        </VBox.margin>
+      </TextArea>
+    </VBox>
+  </children>
+</VBox>
