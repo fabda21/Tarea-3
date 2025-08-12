@@ -1,6 +1,8 @@
-package com.converter.model;
+package com.example.conversordeunidades.model;
 
-
+/**
+ * Enum que representa los tipos de conversión disponibles
+ */
 public enum ConversionType {
     LONGITUD("Longitud"),
     PESO("Peso"),

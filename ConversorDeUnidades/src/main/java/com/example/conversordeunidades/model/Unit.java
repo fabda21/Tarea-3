@@ -1,6 +1,8 @@
-package com.converter.model;
+package com.example.conversordeunidades.model;
 
-
+/**
+ * Enum que representa todas las unidades de medida disponibles
+ */
 public enum Unit {
     // Unidades de Longitud (factor de conversión a metros)
     METROS("Metros", ConversionType.LONGITUD, "m", 1.0),

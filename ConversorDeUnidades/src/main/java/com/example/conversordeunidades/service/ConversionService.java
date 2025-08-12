@@ -1,7 +1,6 @@
-package com.converter.service;
+package com.example.conversordeunidades.service;
 
-import com.converter.model.ConversionType;
-import com.converter.model.Unit;
+import com.example.conversordeunidades.model.Unit;
 
 /**
  * Servicio que maneja todas las conversiones de unidades

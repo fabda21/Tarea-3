@@ -1,9 +1,11 @@
-package com.converter.model;
+package com.example.conversordeunidades.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
+/**
+ * Representa una conversión en el historial
+ */
 public class ConversionHistory {
     private final double inputValue;
     private final Unit fromUnit;
